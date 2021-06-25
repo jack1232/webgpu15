@@ -7,10 +7,10 @@ export const ConeWireframeData = (rtop:number, rbottom:number, height:number, n:
 
     for(let i = 0;i<n+1;i++){
         pts.push([
-            ConePosition(rtop,i*360/(n-1), h, center),
-            ConePosition(rbottom,i*360/(n-1), -h, center),
-            ConePosition(0,i*360/(n-1), -h, center),
-            ConePosition(0,i*360/(n-1), h, center)]);
+            ConePosition(rtop, i*360/(n-1), h, center),
+            ConePosition(rbottom, i*360/(n-1), -h, center),
+            ConePosition(0, i*360/(n-1), -h, center),
+            ConePosition(0, i*360/(n-1), h, center)]);
      }
 
     let p = [] as any;
