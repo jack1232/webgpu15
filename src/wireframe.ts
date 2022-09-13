@@ -13,6 +13,7 @@ export const CreateWireframe = async (wireframeData: Float32Array, isAnimation =
  
     const shader = Shaders();
     const pipeline = device.createRenderPipeline({
+        layout:'auto',
         vertex: {
             module: device.createShaderModule({                    
                 code: shader.vertex
@@ -89,15 +90,17 @@ export const CreateWireframe = async (wireframeData: Float32Array, isAnimation =
     const renderPassDescription = {
         colorAttachments: [{
             view: textureView,
-            loadValue: { r: 0.2, g: 0.247, b: 0.314, a: 1.0 }, //background color
+            clearValue: { r: 0.2, g: 0.247, b: 0.314, a: 1.0 }, //background color
+            loadOp:'clear',
             storeOp: 'store'
         }],
         depthStencilAttachment: {
             view: depthTexture.createView(),
-            depthLoadValue: 1.0,
+            depthClearValue: 1.0,
+            depthLoadOp:'clear',
             depthStoreOp: "store",
-            stencilLoadValue: 0,
-            stencilStoreOp: "store"
+            //stencilLoadValue: 0,
+            //stencilStoreOp: "store"
         }
     };
     
@@ -123,7 +126,7 @@ export const CreateWireframe = async (wireframeData: Float32Array, isAnimation =
         renderPass.setVertexBuffer(0, vertexBuffer);
         renderPass.setBindGroup(0, uniformBindGroup);       
         renderPass.draw(numberOfVertices);
-        renderPass.endPass();
+        renderPass.end();
 
         device.queue.submit([commandEncoder.finish()]);
     }
